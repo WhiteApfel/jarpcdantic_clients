@@ -1,0 +1,10 @@
+wheel
+-r requirements.txt
+pre-commit~=3.7.1
+pytest~=8.2.2
+pytest-cov~=5.0.0
+pytest-asyncio~=0.23.7
+aioresponses~=0.7.6
+black~=24.4.2
+isort~=5.13.2
+twine~=5.1.0
