@@ -1,24 +1,24 @@
 isort:
-	@isort --profile black ./jarpcdantic_clients/
-	@isort --profile black ./tests/
+	@uv run isort --profile black ./jarpcdantic_clients/
+	@uv run isort --profile black ./tests/
 
 
 black:
-	@black ./jarpcdantic_clients/ --preview
-	@black ./tests/ --preview
+	@uv run black ./jarpcdantic_clients/ --preview
+	@uv run black ./tests/ --preview
 
 
 install: uninstall
-	pip install .
+	uv pip install .
 	@echo "Done"
 
 
 uninstall:
-	@pip uninstall jarpcdantic_clients -y
+	@uv pip uninstall jarpcdantic_clients
 
 
 test:
-	@pytest --cov=jarpcdantic_clients
+	@uv run pytest --cov=jarpcdantic_clients
 
 
 clean:
@@ -41,14 +41,14 @@ clean:
 	@rm -rf *.egg-info
 
 install-dev: uninstall
-	@pip install -Ur requirements-dev.txt
-	@pip install -e .
+	@uv pip install -Ur requirements-dev.txt
+	@uv pip install -e .
 
 build:
-	@python setup.py sdist bdist_wheel
+	@uv build
 
 upload:
-	@twine upload dist/*
+	@uv publish dist/*
 
 publish:
 	@make install-dev
