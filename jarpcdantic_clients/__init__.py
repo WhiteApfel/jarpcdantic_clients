@@ -12,4 +12,4 @@ __all__ = (
     "create_requests_client",
 )
 
-__version__ = "1.0.3"
+__version__ = "1.1.0"

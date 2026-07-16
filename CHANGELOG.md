@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+1.1.0 (2026-07-16)
+------------------
+- rename cabbage transport to cabbagok
+- bump cabbagok dependency to ~1.2.0
+
 1.0.0 (2024-06-06)
 ----------------
 - migrate to JARPCdantic
