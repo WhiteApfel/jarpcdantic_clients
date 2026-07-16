@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+1.2.0 (2026-07-16)
+------------------
+- add CabbagokServer for zero-boilerplate AMQP server setup
+- migrate build system from setuptools to uv
+
 1.1.1 (2026-07-16)
 ------------------
 - bump cabbagok dependency to ~2.0.1
