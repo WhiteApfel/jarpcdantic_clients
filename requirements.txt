@@ -1,5 +1,4 @@
 jarpcdantic~=0.1.18
-aioamqp~=0.15.0
-cabbagok~=1.2.0
+cabbagok~=2.0.1
 aiohttp~=3.13.3
 requests==2.32.5

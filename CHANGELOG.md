@@ -1,10 +1,14 @@
 CHANGELOG
 =========
 
+1.1.1 (2026-07-16)
+------------------
+- bump cabbagok dependency to ~2.0.1
+- remove obsolete aioamqp dependency
+
 1.1.0 (2026-07-16)
 ------------------
 - rename cabbage transport to cabbagok
-- bump cabbagok dependency to ~1.2.0
 
 1.0.0 (2024-06-06)
 ----------------
