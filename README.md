@@ -21,10 +21,10 @@ pip install jarpcdatic_clients[all]
 2) Use factory to create JARPCdantic client or use transport separately:
 
 ```python
-from jarpcdantic_clients import create_cabbage_client
+from jarpcdantic_clients import create_cabbagok_client
 
 amqp_rpc = ...
-client = create_cabbage_client(amqp_rpc=amqp_rpc, exchange='exchange_name', default_ttl=30.0)
+client = create_cabbagok_client(amqp_rpc=amqp_rpc, exchange='exchange_name', default_ttl=30.0)
 result = client(method='method_name', params=dict(param1=1))
 result = client.method_name(param1=1)
 ```

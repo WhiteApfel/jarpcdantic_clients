@@ -42,7 +42,7 @@ class AiohttpTransport:
     async def __call__(
         self,
         request_string: str,
-        request: jarpc.JarpcRequest,
+        request: jarpcdantic.JarpcRequest,
         session=None,
         request_kwargs: Optional[dict] = None,
     ) -> str:
@@ -77,7 +77,7 @@ class AiohttpTransport:
             async with session.request(**request_kwargs) as http_request:
                 return await http_request.text()
         except aiohttp.ServerTimeoutError:
-            raise jarpc.JarpcTimeout()
+            raise jarpcdantic.JarpcTimeout()
 
     async def get_session(self):
         """
@@ -103,9 +103,7 @@ def create_aiohttp_client(
     default_ttl: Optional[float] = None,
     default_rpc_ttl: Optional[float] = None,
     default_notification_ttl: Optional[float] = None,
-    loads: Callable[[str], Any] = jarpc.format.json_loads,
-    dumps: Callable[[Any], str] = jarpc.format.json_dumps,
-) -> jarpc.AsyncJarpcClient:
+) -> jarpcdantic.AsyncJarpcClient:
     """
     Create JARPC client with aiohttp transport.
 
@@ -115,18 +113,14 @@ def create_aiohttp_client(
     :param default_ttl: float time interval while calling still actual
     :param default_rpc_ttl: default_ttl for rsvp=True calls (if None default_ttl will be used)
     :param default_notification_ttl: default_ttl for rsvp=False calls (if None default_ttl will be used)
-    :param loads: json loads
-    :param dumps: json dumps
     :return: AsyncJarpcClient object
     """
     transport = AiohttpTransport(
         url=url, session=session, request_kwargs=request_kwargs
     )
-    return jarpc.AsyncJarpcClient(
+    return jarpcdantic.AsyncJarpcClient(
         transport=transport,
         default_ttl=default_ttl,
         default_rpc_ttl=default_rpc_ttl,
         default_notification_ttl=default_notification_ttl,
-        loads=loads,
-        dumps=dumps,
     )

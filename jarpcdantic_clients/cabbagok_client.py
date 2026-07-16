@@ -6,18 +6,18 @@ import jarpcdantic
 try:
     import cabbagok
 except ImportError:
-    cabbage = None
+    cabbagok = None
 
 
-class CabbageTransport:
+class CabbagokTransport:
     """
-    Transport to make rpc through RabbitMQ using "cabbage" library.
+    Transport to make rpc through RabbitMQ using "cabbagok" library.
     """
 
     def __init__(self, amqp_rpc, exchange: str, default_timeout: float = 60.0):
         """
         Init transport.
-        :param amqp_rpc: cabbage AsyncAmqpRpc-object that should be connected before calling this transport
+        :param amqp_rpc: cabbagok AsyncAmqpRpc-object that should be connected before calling this transport
         :param exchange: RabbitMQ exchange
         :param default_timeout: default rpc timeout, used if JARPC request ttl is not specified
         """
@@ -28,7 +28,7 @@ class CabbageTransport:
     async def __call__(
         self,
         request_string: str,
-        request: jarpc.JarpcRequest,
+        request: jarpcdantic.JarpcRequest,
         correlation_id: Optional[str] = None,
     ) -> Optional[str]:
         """
@@ -49,18 +49,18 @@ class CabbageTransport:
         )
 
 
-def create_cabbage_client(
+def create_cabbagok_client(
     amqp_rpc,
     exchange: str,
     default_timeout: Optional[float] = None,
     default_ttl: Optional[float] = None,
     default_rpc_ttl: Optional[float] = None,
     default_notification_ttl: Optional[float] = None,
-) -> jarpc.AsyncJarpcClient:
+) -> jarpcdantic.AsyncJarpcClient:
     """
-    Create JARPC client with cabbage transport.
+    Create JARPC client with cabbagok transport.
 
-    :param amqp_rpc: cabbage AsyncAmqpRpc-object that should be connected before calling this transport
+    :param amqp_rpc: cabbagok AsyncAmqpRpc-object that should be connected before calling this transport
     :param exchange: RabbitMQ exchange
     :param default_timeout: default rpc timeout, used if JARPC request ttl is not specified
     :param default_ttl: float time interval while calling still actual
@@ -68,10 +68,10 @@ def create_cabbage_client(
     :param default_notification_ttl: default_ttl for rsvp=False calls (if None default_ttl will be used)
     :return: AsyncJarpcClient object
     """
-    transport = CabbageTransport(
+    transport = CabbagokTransport(
         amqp_rpc=amqp_rpc, exchange=exchange, default_timeout=default_timeout
     )
-    return jarpc.AsyncJarpcClient(
+    return jarpcdantic.AsyncJarpcClient(
         transport=transport,
         default_ttl=default_ttl,
         default_rpc_ttl=default_rpc_ttl,

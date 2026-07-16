@@ -1,4 +1,5 @@
-jarpcdantic~=0.1.1
+jarpcdantic~=0.1.18
 aioamqp~=0.15.0
-aiohttp~=3.9.5
-requests==2.32.3
+cabbagok~=1.2.0
+aiohttp~=3.13.3
+requests==2.32.5

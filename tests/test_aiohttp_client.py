@@ -13,7 +13,7 @@ class TestAiohttpClient:
 
     def test_factory(self):
         client = create_aiohttp_client(url="http://test/")
-        assert isinstance(client, jarpc.AsyncJarpcClient)
+        assert isinstance(client, jarpcdantic.AsyncJarpcClient)
         assert isinstance(client._transport, AiohttpTransport)
 
     @pytest.mark.asyncio
@@ -41,7 +41,7 @@ class TestAiohttpClient:
         test_url = "http://test/"
         client = create_aiohttp_client(url=test_url)
 
-        with pytest.raises(jarpc.JarpcTimeout):
+        with pytest.raises(jarpcdantic.JarpcTimeout):
             with aioresponses() as aiohttp_mock:
                 aiohttp_mock.post(test_url, exception=aiohttp.ServerTimeoutError())
                 await client(method="method_name", params={}, ttl=0)

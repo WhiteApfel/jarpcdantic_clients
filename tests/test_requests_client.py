@@ -13,7 +13,7 @@ class TestRequestsClient:
 
     def test_factory(self):
         client = create_requests_client(url="http://test/")
-        assert isinstance(client, jarpc.JarpcClient)
+        assert isinstance(client, jarpcdantic.JarpcClient)
         assert isinstance(client._transport, RequestsTransport)
         client._transport.close_session()
 
@@ -36,7 +36,7 @@ class TestRequestsClient:
         assert result == expected_result
 
     def test_timeout_error(self):
-        with pytest.raises(jarpc.JarpcTimeout):
+        with pytest.raises(jarpcdantic.JarpcTimeout):
             with mock.patch(
                 "jarpc_clients.requests_client.requests.Session"
             ) as SessionMock:

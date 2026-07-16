@@ -3,24 +3,24 @@ import json
 
 import jarpc
 import pytest
-from cabbage import AmqpConnection
-from cabbage.test_utils import FakeAsyncAmqpRpc
+from cabbagok import AmqpConnection
+from cabbagok.test_utils import FakeAsyncAmqpRpc
 
-from jarpcdantic_clients import CabbageTransport, create_cabbage_client
+from jarpcdantic_clients import CabbagokTransport, create_cabbagok_client
 
 
-class TestCabbageClient:
+class TestCabbagokClient:
 
     def test_factory(self):
         amqp_rpc = FakeAsyncAmqpRpc(connection=AmqpConnection())
-        client = create_cabbage_client(amqp_rpc=amqp_rpc, exchange="test_exchange")
-        assert isinstance(client, jarpc.AsyncJarpcClient)
-        assert isinstance(client._transport, CabbageTransport)
+        client = create_cabbagok_client(amqp_rpc=amqp_rpc, exchange="test_exchange")
+        assert isinstance(client, jarpcdantic.AsyncJarpcClient)
+        assert isinstance(client._transport, CabbagokTransport)
 
     @pytest.mark.asyncio
     async def test_call(self):
         amqp_rpc = FakeAsyncAmqpRpc(connection=AmqpConnection())
-        client = create_cabbage_client(amqp_rpc=amqp_rpc, exchange="test_exchange")
+        client = create_cabbagok_client(amqp_rpc=amqp_rpc, exchange="test_exchange")
 
         method = "method_name"
         expected_result = "some_result"
