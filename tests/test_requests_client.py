@@ -2,7 +2,7 @@
 import json
 from unittest import mock
 
-import jarpc
+import jarpcdantic
 import pytest
 import requests
 
@@ -24,24 +24,24 @@ class TestRequestsClient:
         )
 
         with mock.patch(
-            "jarpc_clients.requests_client.requests.Session"
+            "jarpcdantic_clients.requests_client.requests.Session"
         ) as SessionMock:
             session_instance = SessionMock.return_value
             response_object = session_instance.request.return_value
             response_object.text = response
 
             client = create_requests_client(url="http://test/")
-            result = client(method="method_name", params={})
+            result = client(method_name="method_name", params={})
 
         assert result == expected_result
 
     def test_timeout_error(self):
         with pytest.raises(jarpcdantic.JarpcTimeout):
             with mock.patch(
-                "jarpc_clients.requests_client.requests.Session"
+                "jarpcdantic_clients.requests_client.requests.Session"
             ) as SessionMock:
                 session_instance = SessionMock.return_value
                 session_instance.request = mock.Mock(side_effect=requests.Timeout())
 
                 client = create_requests_client(url="http://test/")
-                client(method="method_name", params={}, ttl=0)
+                client(method_name="method_name", params={}, ttl=0)

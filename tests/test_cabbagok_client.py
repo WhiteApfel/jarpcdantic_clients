@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 
-import jarpc
+import jarpcdantic
 import pytest
 from cabbagok import AmqpConnection
 from cabbagok.test_utils import FakeAsyncAmqpRpc
@@ -14,7 +14,7 @@ class TestCabbagokClient:
     def test_factory(self):
         amqp_rpc = FakeAsyncAmqpRpc(connection=AmqpConnection())
         client = create_cabbagok_client(amqp_rpc=amqp_rpc, exchange="test_exchange")
-        assert isinstance(client, jarpcdantic.AsyncJarpcClient)
+        assert isinstance(client, jarpcdantic.JarpcClient)
         assert isinstance(client._transport, CabbagokTransport)
 
     @pytest.mark.asyncio
@@ -29,5 +29,5 @@ class TestCabbagokClient:
         )
         amqp_rpc.set_response(routing_key=method, data=response)
 
-        result = await client(method=method, params={})
+        result = await client(method_name=method, params={})
         assert result == expected_result

@@ -2,7 +2,7 @@
 import json
 
 import aiohttp
-import jarpc
+import jarpcdantic
 import pytest
 from aioresponses import aioresponses
 
@@ -13,7 +13,7 @@ class TestAiohttpClient:
 
     def test_factory(self):
         client = create_aiohttp_client(url="http://test/")
-        assert isinstance(client, jarpcdantic.AsyncJarpcClient)
+        assert isinstance(client, jarpcdantic.JarpcClient)
         assert isinstance(client._transport, AiohttpTransport)
 
     @pytest.mark.asyncio
@@ -28,7 +28,7 @@ class TestAiohttpClient:
 
         with aioresponses() as aiohttp_mock:
             aiohttp_mock.post(test_url, body=response)
-            result = await client(method="method_name", params={})
+            result = await client(method_name="method_name", params={})
 
         assert result == expected_result
 
@@ -44,6 +44,6 @@ class TestAiohttpClient:
         with pytest.raises(jarpcdantic.JarpcTimeout):
             with aioresponses() as aiohttp_mock:
                 aiohttp_mock.post(test_url, exception=aiohttp.ServerTimeoutError())
-                await client(method="method_name", params={}, ttl=0)
+                await client(method_name="method_name", params={}, ttl=0)
 
         await client._transport.close_session()
